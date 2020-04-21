@@ -37,7 +37,7 @@ Ports: 16012 16013
 ##### Region servers
 Ports: 16030 16032 16033 16034 16035
 
-# Alias on Docker Image
+### Alias on Docker Image
 - Get access to the HBase shell
 ```
 shellhb
