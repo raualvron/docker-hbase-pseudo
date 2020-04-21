@@ -22,7 +22,7 @@ docker build -t ralvron/hbase_pseudo .
 docker run -it -P --name hbasepseudo ralvron/hbase_pseudo
 ```
 ```
-docker run -it --hostname=hbasepseudo -p 2181:2181 -p 16010:16010 -p 16000:16000 -p 16001:16001 -p 16012:16012 -p 16013:16013 -p 16030:16030 -p 16032:16032 -p 16033:16033 -p 16034:16034 -p 16035:16035/hbase_pseudo
+docker run -it --hostname=hbasepseudo -p 2181:2181 -p 16010:16010 -p 16000:16000 -p 16001:16001 -p 16012:16012 -p 16013:16013 -p 16030:16030 -p 16032:16032 -p 16033:16033 -p 16034:16034 -p 16035:16035 ralvron/hbase_pseudo
 ```
 
 ### Hbase ports 
@@ -37,7 +37,7 @@ Ports: 16012 16013
 ##### Region servers
 Ports: 16030 16032 16033 16034 16035
 
-# Alias on Docker Images
+# Alias on Docker Image
 - Get access to the HBase shell
 ```
 shellhb
