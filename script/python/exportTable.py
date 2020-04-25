@@ -75,7 +75,7 @@ if __name__ == "__main__":
         families = get_families(table)
         file_row = []
         for family in families:
-            file_path = create_file('output')
+            file_path = create_file('/script/csv/output')
             # https://github.com/python-happybase/happybase/issues/12
             for sensor, column_family in get_table_tuple(table, family):
                 if sensor[:1] == str(rows):
@@ -85,10 +85,14 @@ if __name__ == "__main__":
                         if columns > len(measures):
                             print("You are requesting a column which has not been created previously on create table")
                             sys.exit(0)
-                        measures_pos.append(measures[0])
+                        measures_pos.append(measures[columns-1])
                        
                     file_row.append(sensor[1:] + "," + family + "," + ",".join(measures_pos))
         file_row.sort()
+        if len(file_row) == 0:
+            print("You are requesting a row which has not been created previously on create table")
+            sys.exit(0)
+
         if file_row is not None:
             print ("Starting to export the DB on a CSV file:")
             time.sleep(5)
