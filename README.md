@@ -57,4 +57,5 @@ deletedb
 alias createdb="python /script/python/createTable.py /script/csv/SET-dec-2013.csv"
 alias exportdb="python /script/python/exportTable.py"
 alias deletedb="python /script/python/deleteTables.py"
+alias catoutput="cat /script/csv/output"
 ```
