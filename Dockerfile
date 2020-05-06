@@ -49,7 +49,7 @@ RUN echo 'alias shellhb="$HBASE_HOME/bin/hbase shell"' >> ~/.bashrc
 RUN echo 'alias createdb="python /script/python/createTable.py /script/csv/SET-dec-2013.csv"' >> ~/.bashrc
 RUN echo 'alias exportdb="python /script/python/exportTable.py"' >> ~/.bashrc
 RUN echo 'alias deletedb="python /script/python/deleteTables.py"' >> ~/.bashrc
-RUN echo 'alias catoutput="cat /script/csv/output.csv"' >> ~/.bashrc
+RUN echo 'alias catoutput="cat -n /script/csv/output.csv"' >> ~/.bashrc
 
 # Commands:
 # docker build -t ralvron/hbase_pseudo .
