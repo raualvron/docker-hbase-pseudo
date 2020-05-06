@@ -40,10 +40,11 @@ def generate_rowkey_column(columns, rows):
     else:
         print("Starting to store data on the database:")
         time.sleep(5)
+        count = 1
         for row in range(int(rows)):
             with open(path, mode='r') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
-                count = 1
+                
                 for row_csv in csv_reader:
                     sensor = str(int(row)+1) + str(row_csv[0])
                     date = row_csv[1].split(" ", 1)[0]
