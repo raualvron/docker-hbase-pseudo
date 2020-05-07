@@ -24,6 +24,19 @@ def get_families(table):
 def get_table_tuple(table, family):
     return table.scan(columns=[family], sorted_columns=True)
 
+# row(row, columns=None, timestamp=None, include_timestamp=False)
+# Retrieve a single row of data.
+# Returns: Mapping of columns (both qualifier and family) to values
+# Return type: dict
+# https://happybase.readthedocs.io/en/latest/api.html#happybase.Table.row
+def get_header(table, row, family):
+
+    columns = table.row(row, columns=[family]).items()
+    column_dates = [item[0].split(":", 1)[1] for item in columns]
+    column_dates.sort()
+    # 00:00 00:10 00:20 00:30 00:40 00:50..
+    return "Sensor" + ",Dates," + ",".join(column_dates)
+
 def get_tables(connection):
     # Return a list of table names available in this HBase instance.
     # If a table_prefix was set for this Connection, only tables that have the specified prefix will be listed.
@@ -74,32 +87,34 @@ if __name__ == "__main__":
         # 2013-12-05
         families = get_families(table)
         file_row = []
+        header = get_header(table,'1DG1000420', families.items()[0][0])
         for family in families:
             file_path = create_file('/script/csv/output')
             # https://github.com/python-happybase/happybase/issues/12
             for sensor, column_family in get_table_tuple(table, family):
-                if sensor[:1] == str(rows):
+                if sensor.startswith(str(rows)):
                     measures_pos = []
                     for measures in table.cells(sensor, family):
                         measures = measures.split(",")
-                        if columns > len(measures):
-                            print("You are requesting a column which has not been created previously on create table")
-                            sys.exit(0)
-                        measures_pos.append(measures[columns-1])
-                       
-                    file_row.append(sensor[1:] + "," + family + "," + ",".join(measures_pos))
+                    	if columns > len(measures):
+                            	print("You are requesting a column which has not been created previously on create table")
+                        	sys.exit(0)
+                    	measures_pos.append(measures[columns-1])
+                    file_row.append(sensor.replace(rows,"",1) + "," + family + "," + ",".join(measures_pos))
         file_row.sort()
         if len(file_row) == 0:
             print("You are requesting a row which has not been created previously on create table")
             sys.exit(0)
-
+        
         if file_row is not None:
             print ("Starting to export the DB on a CSV file:")
             time.sleep(5)
+<<<<<<< HEAD
             file_path.write('Sensor,' + 'Date,' + column_family.split(",") + '\n')
+=======
+            file_path.write(header + '\n')
+>>>>>>> 75280e5106f004336f934b571078076b27948d24
             for line in file_row:
                 print("CSV Row: " + line + '\n')
                 file_path.write(line + '\n')
         file_path.close()
-
-
