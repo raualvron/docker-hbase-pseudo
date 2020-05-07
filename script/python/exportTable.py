@@ -96,6 +96,7 @@ if __name__ == "__main__":
         if file_row is not None:
             print ("Starting to export the DB on a CSV file:")
             time.sleep(5)
+            file_path.write('Sensor,' + 'Date,' + column_family.split(",") + '\n')
             for line in file_row:
                 print("CSV Row: " + line + '\n')
                 file_path.write(line + '\n')
